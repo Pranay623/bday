@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Happy Birthday</title>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="container">
+  <label>
+    <div class="heart">
+      <img src="https://upload.wikimedia.org/wikipedia/commons/4/42/Love_Heart_SVG.svg"></img>
+    </div>
+    <input id="messageState" type="checkbox" style="display:none"/>
+  </label>
+  <audio id="audioPlayer" autoplay loop>
+    <source src="my.mp3" type="audio/mp3">
+  </audio>
+  <div class="message">
+    <h1>My Dearest</h1>
+    <p><span class="main">Happy Birthday My Love</span>  
+        </p>
+
+       <p>
+        "My love, as I sit here trying to find the words to express the depth of my feelings for you. 
+        Your presence in my life is like a gentle breeze on a warm summer day—soothing and  comforting,. 
+        Waiting for the moment when we will meet and look into your beautiful eyes as every glance into your eyes unveils a universe of love and passion. 
+        Your laughter is the melody that brings harmony to my soul.
+        In you, I've found not just a freind, but my partner, my confidante, and my greatest source of joy.
+        With each beat of my heart, I am reminded of the profound love I hold for you, a love that knows no bounds and only grows stronger with time.
+        I always wanted to be the main character of the story you read and there will be a time when we will read your favourite books together.
+        You are my everything, my forever, and I am endlessly grateful to have you by my side. Happy Birthday, my dearest, may this day be as magical as you are."
+        
+        <span class="main"></span></br> Your Love ~ Pranay </span>
+
+
+
+
+    </p> 
+  </div>
+  <p class="back">Click On Heart To See Magic</p>
+</div>
+
+<script>
+// Function to play the audio file
+function playAudio() {
+  const audioPlayer = document.getElementById('audioPlayer');
+  if (audioPlayer.paused) {
+    audioPlayer.play();
+  }
+}
+
+// Function to pause the audio file
+function pauseAudio() {
+  const audioPlayer = document.getElementById('audioPlayer');
+  if (!audioPlayer.paused) {
+    audioPlayer.pause();
+  }
+}
+
+// Event listener for the messageState change
+$("#messageState").on("change", (x) => {
+  $(".message").removeClass("openNor").removeClass("closeNor");
+  if ($("#messageState").is(":checked")) {
+    // Call playAudio function when messageState is checked
+    playAudio();
+    $(".message")
+      .removeClass("closed")
+      .removeClass("no-anim")
+      .addClass("openNor");
+    $(".heart")
+      .removeClass("closeHer")
+      .removeClass("openedHer")
+      .addClass("openHer");
+    $(".container").stop().animate({ backgroundColor: "#f48fb1" }, 2000);
+    console.log("Abrindo");
+  } else {
+    // Call pauseAudio function when messageState is unchecked
+    pauseAudio();
+    $(".message").removeClass("no-anim").addClass("closeNor");
+    $(".heart")
+      .removeClass("openHer")
+      .removeClass("openedHer")
+      .addClass("closeHer");
+    $(".container").stop().animate({ backgroundColor: "#fce4ec" }, 2000);
+    console.log("fechando");
+  }
+});
+
+// Remaining code for animation end events
+$(".message").on(
+  "webkitAnimationEnd oanimationend msAnimationEnd animationend",
+  function (e) {
+    console.log("Animation End");
+    if ($(".message").hasClass("closeNor")) $(".message").addClass("closed");
+    $(".message")
+      .removeClass("openNor")
+      .removeClass("closeNor")
+      .addClass("no-anim");
+  }
+);
+
+$(".heart").on(
+  "webkitAnimationEnd oanimationend msAnimationEnd animationend",
+  function (e) {
+    console.log("Animation End");
+    if (!$(".heart").hasClass("closeHer"))
+      $(".heart").addClass("openedHer").addClass("beating");
+    else $(".heart").addClass("no-anim").removeClass("beating");
+    $(".heart").removeClass("openHer").removeClass("closeHer");
+  }
+);
+</script>
+</body>
+</html>
